@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:mem:credit_application_system_db
-    username: cami
+    username: bruno
     password:
   jpa:
     show-sql: true
@@ -14,7 +14,8 @@ spring:
       path: /h2-console
       settings:
         trace: false
-        web-allow-others: false
+        web-allow-others: true
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
