@@ -38,16 +38,18 @@
 	<li>Execute o comando: <code>./gradlew bootrun</code></li>
 </ol>
 
-<h3>Contribuicao nesse fork</h3>
-<p>Criado o arquivo CreditResourceTest.kt para realização dos testes de integração, dos endpoints do CreditResource.kt.</p>
-<p>by blss-tico :-)</p>
-<h4>Links:</h4>
-<p>
-    <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/result/MockMvcResultMatchers.html#content()">Spring Documentation</a>
-</p>
-<p>
-    <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/">Kotlin Documentation</a>
-</p>
+<div style="backgroundColor: #e3e3e3">
+    <h3>Contribuicao nesse fork</h3>
+    <p>Criado o arquivo CreditResourceTest.kt para realização dos testes de integração, dos endpoints do CreditResource.kt.</p>
+    <p>by blss-tico :-)</p>
+    <h4>Links:</h4>
+    <p>
+        &nbsp;&nbsp;<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/result/MockMvcResultMatchers.html#content()">Spring Documentation</a>
+    </p>
+    <p>
+        &nbsp;&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/">Kotlin Documentation</a>
+    </p>
+</div>
 
 
 <h6>** Visando facilitar a demostração da aplicação, recomendo instalar apenas o IntelliJ IDEA e executar o projeto através da IDE **</h6>
