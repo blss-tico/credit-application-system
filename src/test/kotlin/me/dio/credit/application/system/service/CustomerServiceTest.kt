@@ -26,30 +26,38 @@ class CustomerServiceTest {
   @InjectMockKs lateinit var customerService: CustomerService
 
   @Test
-  fun `should create customer`(){
-    //given
+  fun `should create a customer`(){
+    //given (data received to test)
     val fakeCustomer: Customer = buildCustomer()
+    // method from mockk to mock fakeCustomer
     every { customerRepository.save(any()) } returns fakeCustomer
-    //when
+
+    //when (callmethod to test)
     val actual: Customer = customerService.save(fakeCustomer)
-    //then
+
+    //then (assert data)
     Assertions.assertThat(actual).isNotNull
     Assertions.assertThat(actual).isSameAs(fakeCustomer)
+
+    // check if method was execute n times (exactly = n)
     verify(exactly = 1) { customerRepository.save(fakeCustomer) }
   }
 
   @Test
-  fun `should find customer by id`() {
+  fun `should find a customer by id`() {
     //given
     val fakeId: Long = Random().nextLong()
     val fakeCustomer: Customer = buildCustomer(id = fakeId)
     every { customerRepository.findById(fakeId) } returns Optional.of(fakeCustomer)
+
     //when
     val actual: Customer = customerService.findById(fakeId)
+
     //then
     Assertions.assertThat(actual).isNotNull
     Assertions.assertThat(actual).isExactlyInstanceOf(Customer::class.java)
     Assertions.assertThat(actual).isSameAs(fakeCustomer)
+
     verify(exactly = 1) { customerRepository.findById(fakeId) }
   }
 
@@ -58,11 +66,15 @@ class CustomerServiceTest {
     //given
     val fakeId: Long = Random().nextLong()
     every { customerRepository.findById(fakeId) } returns Optional.empty()
-    //when
+
+    //when (not used because customer not exists in this case)
+
     //then
-    Assertions.assertThatExceptionOfType(BusinessException::class.java)
+    Assertions
+      .assertThatExceptionOfType(BusinessException::class.java)
       .isThrownBy { customerService.findById(fakeId) }
       .withMessage("Id $fakeId not found")
+
     verify(exactly = 1) { customerRepository.findById(fakeId) }
   }
 
@@ -73,8 +85,10 @@ class CustomerServiceTest {
     val fakeCustomer: Customer = buildCustomer(id = fakeId)
     every { customerRepository.findById(fakeId) } returns Optional.of(fakeCustomer)
     every { customerRepository.delete(fakeCustomer) } just runs
+
     //when
     customerService.delete(fakeId)
+
     //then
     verify(exactly = 1) { customerRepository.findById(fakeId) }
     verify(exactly = 1) { customerRepository.delete(fakeCustomer) }
@@ -83,14 +97,14 @@ class CustomerServiceTest {
 
   companion object {
     fun buildCustomer(
-      firstName: String = "Cami",
-      lastName: String = "Cavalcante",
-      cpf: String = "28475934625",
-      email: String = "camila@gmail.com",
-      password: String = "12345",
-      zipCode: String = "12345",
-      street: String = "Rua da Cami",
-      income: BigDecimal = BigDecimal.valueOf(1000.0),
+      firstName: String = "Bruno",
+      lastName: String = "Leo",
+      cpf: String = "57861728218",
+      email: String = "bruno@email.com",
+      password: String = "123456",
+      zipCode: String = "81270000",
+      street: String = "Av do Batel, 1200",
+      income: BigDecimal = BigDecimal.valueOf(10000.0),
       id: Long = 1L
     ) = Customer(
       firstName = firstName,

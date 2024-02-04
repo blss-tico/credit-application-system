@@ -40,9 +40,11 @@ class CreditRepositoryTest {
     val creditCode2 = UUID.fromString("49f740be-46a7-449b-84e7-ff5b7986d7ef")
     credit1.creditCode = creditCode1
     credit2.creditCode = creditCode2
+
     //when
     val fakeCredit1: Credit = creditRepository.findByCreditCode(creditCode1)!!
     val fakeCredit2: Credit = creditRepository.findByCreditCode(creditCode2)!!
+
     //then
     Assertions.assertThat(fakeCredit1).isNotNull
     Assertions.assertThat(fakeCredit2).isNotNull
@@ -54,8 +56,10 @@ class CreditRepositoryTest {
   fun `should find all credits by customer id`() {
     //given
     val customerId: Long =  1L
+
     //when
     val creditList: List<Credit> = creditRepository.findAllByCustomerId(customerId)
+
     //then
     Assertions.assertThat(creditList).isNotEmpty
     Assertions.assertThat(creditList.size).isEqualTo(2)
@@ -64,7 +68,7 @@ class CreditRepositoryTest {
 
   private fun buildCredit(
     creditValue: BigDecimal = BigDecimal.valueOf(500.0),
-    dayFirstInstallment: LocalDate = LocalDate.of(2023, Month.APRIL, 22),
+    dayFirstInstallment: LocalDate = LocalDate.of(2024, Month.APRIL, 10),
     numberOfInstallments: Int = 5,
     customer: Customer
   ): Credit = Credit(
@@ -73,15 +77,16 @@ class CreditRepositoryTest {
     numberOfInstallments = numberOfInstallments,
     customer = customer
   )
+
   private fun buildCustomer(
-    firstName: String = "Cami",
-    lastName: String = "Cavalcante",
-    cpf: String = "28475934625",
-    email: String = "camila@gmail.com",
-    password: String = "12345",
-    zipCode: String = "12345",
-    street: String = "Rua da Cami",
-    income: BigDecimal = BigDecimal.valueOf(1000.0),
+    firstName: String = "Bruno",
+    lastName: String = "Leo",
+    cpf: String = "57861728218",
+    email: String = "bruno@email.com",
+    password: String = "123456",
+    zipCode: String = "81270000",
+    street: String = "Av do Batel, 1200",
+    income: BigDecimal = BigDecimal.valueOf(10000.0),
   ) = Customer(
     firstName = firstName,
     lastName = lastName,

@@ -49,8 +49,10 @@ class CreditServiceTest {
 
     every { customerService.findById(customerId) } returns credit.customer!!
     every { creditRepository.save(credit) } returns credit
+
     //when
     val actual: Credit = this.creditService.save(credit)
+
     //then
     verify(exactly = 1) { customerService.findById(customerId) }
     verify(exactly = 1) { creditRepository.save(credit) }
@@ -66,10 +68,12 @@ class CreditServiceTest {
     val credit: Credit = buildCredit(dayFirstInstallment = invalidDayFirstInstallment)
 
     every { creditRepository.save(credit) } answers { credit }
+
     //when
     Assertions.assertThatThrownBy { creditService.save(credit) }
       .isInstanceOf(BusinessException::class.java)
       .hasMessage("Invalid Date")
+
     //then
     verify(exactly = 0) { creditRepository.save(any()) }
   }
@@ -81,8 +85,10 @@ class CreditServiceTest {
     val expectedCredits: List<Credit> = listOf(buildCredit(), buildCredit(), buildCredit())
 
     every { creditRepository.findAllByCustomerId(customerId) } returns expectedCredits
+
     //when
     val actual: List<Credit> = creditService.findAllByCustomer(customerId)
+
     //then
     Assertions.assertThat(actual).isNotNull
     Assertions.assertThat(actual).isNotEmpty
@@ -99,8 +105,10 @@ class CreditServiceTest {
     val credit: Credit = buildCredit(customer = Customer(id = customerId))
 
     every { creditRepository.findByCreditCode(creditCode) } returns credit
+
     //when
     val actual: Credit = creditService.findByCreditCode(customerId, creditCode)
+
     //then
     Assertions.assertThat(actual).isNotNull
     Assertions.assertThat(actual).isSameAs(credit)
@@ -115,7 +123,9 @@ class CreditServiceTest {
     val invalidCreditCode: UUID = UUID.randomUUID()
 
     every { creditRepository.findByCreditCode(invalidCreditCode) } returns null
+
     //when
+
     //then
     Assertions.assertThatThrownBy { creditService.findByCreditCode(customerId, invalidCreditCode) }
       .isInstanceOf(BusinessException::class.java)
@@ -132,7 +142,9 @@ class CreditServiceTest {
     val credit: Credit = buildCredit(customer = Customer(id = 2L))
 
     every { creditRepository.findByCreditCode(creditCode) } returns credit
+
     //when
+
     //then
     Assertions.assertThatThrownBy { creditService.findByCreditCode(customerId, creditCode) }
       .isInstanceOf(IllegalArgumentException::class.java)
@@ -143,9 +155,9 @@ class CreditServiceTest {
 
   companion object {
     private fun buildCredit(
-      creditValue: BigDecimal = BigDecimal.valueOf(100.0),
+      creditValue: BigDecimal = BigDecimal.valueOf(2000.0),
       dayFirstInstallment: LocalDate = LocalDate.now().plusMonths(2L),
-      numberOfInstallments: Int = 15,
+      numberOfInstallments: Int = 10,
       customer: Customer = CustomerServiceTest.buildCustomer()
     ): Credit = Credit(
       creditValue = creditValue,
